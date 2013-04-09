@@ -8,7 +8,7 @@
                 "-ggdb"
             ],
             "libs": [
-                "-lpthread",
+                "-lpthread"
             ]
         },
         "dependency_command": "cc -MM",
