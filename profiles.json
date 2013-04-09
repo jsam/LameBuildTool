@@ -1,0 +1,66 @@
+{
+    "bin_c": {
+        "bin_dir": "bin/",
+        "compiler": {
+            "binary": "cc",
+            "flags": [
+                "-Wall",
+                "-ggdb"
+            ],
+            "libs": [
+                "-lpthread",
+            ]
+        },
+        "dependency_command": "cc -MM",
+        "extension": "c",
+        "obj_dir": "obj/"
+    },
+    "bin_cc": {
+        "bin_dir": "bin/",
+        "compiler": {
+            "binary": "c++",
+            "flags": [
+                "-Wall",
+                "-ggdb"
+            ],
+            "libs": [
+                "-lpthread"
+            ]
+        },
+        "dependency_command": "c++ -MM",
+        "extension": "cc",
+        "obj_dir": "obj/"
+    },
+    "bin_cpp": {
+        "bin_dir": "bin/",
+        "compiler": {
+            "binary": "c++",
+            "flags": [
+                "-Wall",
+                "-ggdb"
+            ],
+            "libs": [
+                "-lpthread"
+            ]
+        },
+        "dependency_command": "c++ -MM",
+        "extension": "cpp",
+        "obj_dir": "obj/"
+    },
+    "default": {
+        "bin_dir": "bin/",
+        "compiler": {
+            "binary": "c++",
+            "flags": [
+                "-Wall",
+                "-ggdb"
+            ],
+            "libs": [
+                "-lpthread"
+            ]
+        },
+        "dependency_command": "c++ -MM",
+        "extension": "cpp",
+        "obj_dir": "obj/"
+    }
+}
