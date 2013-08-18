@@ -69,7 +69,7 @@ You may define more targets in recipe. Dependency in on target to other targets 
 "depends": [
     "target1",
     "target2",
-            ...
+    ...
   ]
   ```
 If the depending target is of type source add the targets target field value (for example "bin/target_name").
@@ -86,11 +86,10 @@ Compiler options are defined under "compiler" object. Don't add tokens as -l or 
 You can control the prefix tokens with the following fields (the presented values are their defaults):
 ```JSON
 "compiler": {
-...
-    "_flag_token" = "-",
-    "_lib_token" = "-l",
-    "_include_token" = "-I"
-...
+    ...
+    "_flag_token": "-",
+    "_lib_token": "-l",
+    "_include_token": "-I"
 }
 ```
 
@@ -99,8 +98,8 @@ Support for compiling libraries and other things is in TODO. For now you can the
 ```JSON
 "compiler": {
 ...
-    "_obj_tokens" = "-c -o",
-    "_link_tokens" = "-o"
+    "_obj_tokens": "-c -o",
+    "_link_tokens": "-o"
 ...
 }
 ```
