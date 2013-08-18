@@ -55,20 +55,23 @@ A skeleton for typical executable looks something like this:
 Keep in mind a few thing. All the listed field should be in the recipe file, because the validation phase is in TODO :)
 
 Every target in name must be named. In the showed skeleton a target is named as target_name:
-    "target_name": {
+    ```"target_name": { ...
+    }```
 
 Each target has it's type. Type is either:
-    "type": "source"
+    ```"type": "source"```
 for generating C/C++ makefile with dependencies and other rule sets for C/C++ binary, or
-    "type": "exec"
+    ```"type": "exec"```
 for just executing a given command (this is still being tested and has a major bug that breaks things. Sorry).
 
 You may define more targets in recipe. Dependency in on target to other targets is defined in list
-    "depends": [
-            "target1",
-            "target2",
+```JSON
+"depends": [
+    "target1",
+    "target2",
             ...
-        ]
+  ]
+  ```
 If the depending target is of type source add the targets target field value (for example "bin/target_name").
 On exec targets add their target name (the root value).
 
@@ -81,22 +84,26 @@ dependency_command defines a command which will be executed on every matched sou
 
 Compiler options are defined under "compiler" object. Don't add tokens as -l or - for flags and libs. The script automatically adds them.
 You can control the prefix tokens with the following fields (the presented values are their defaults):
-    "compiler": {
-    ...
-        "_flag_token" = "-",
-        "_lib_token" = "-l",
-        "_include_token" = "-I"
-    ...
-    }
+```JSON
+"compiler": {
+...
+    "_flag_token" = "-",
+    "_lib_token" = "-l",
+    "_include_token" = "-I"
+...
+}
+```
 
 obj_path defines the directory where the temporary *.o files are placed.
 Support for compiling libraries and other things is in TODO. For now you can the configure the flags with these options:
-    "compiler": {
-    ...
-        "_obj_tokens" = "-c -o",
-        "_link_tokens" = "-o"
-    ...
-    }
+```JSON
+"compiler": {
+...
+    "_obj_tokens" = "-c -o",
+    "_link_tokens" = "-o"
+...
+}
+```
 
 Recipe for exec
 ---------------
