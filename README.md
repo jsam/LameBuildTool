@@ -121,6 +121,7 @@ Recipe for exec
 
 TODO
 ----
+- [x] get drunk (bug found: infinite iteration ongoing in head object at 0x0)
 - [ ] validate JSON with lbt rules before loading it
 - [ ] support for compiling libraries
 - [ ] parsing command line options (yeah, I'm lazy, argv ftw!)
@@ -132,5 +133,4 @@ TODO
       "eval": [
         ["python-command that evals", {target redefinition if eval is true}]
       ]```
-- [x] get drunk (bug found: infinite iteration ongoing in ppofuk.head at 0x0)
 
