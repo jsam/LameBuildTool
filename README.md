@@ -127,5 +127,10 @@ TODO
 - [ ] support for loading more recipes
 - [ ] fix exec and dependencies with source
 - [ ] do some tests
-- [x] get drunk
+- [ ] eval field with syntax something like this:
+      ```...
+      "eval": [
+        ["python-command that evals", {target redefinition if eval is true}]
+      ]```
+- [x] get drunk (bug found: infinite iteration ongoing in ppofuk.head at 0x0)
 
