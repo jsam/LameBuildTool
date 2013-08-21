@@ -119,6 +119,18 @@ Recipe for exec
     }
 ```
 
+Adding makefile definitions
+----------------------------
+The ```"defines"``` root field is a list in which every element is a makefile variable that is added to the begging of makefile.
+For example:
+```JSON
+"defines": [
+    ".DEFAULT_GOAL := bin/some_target"
+]
+```
+will define bin/some_target as default target when calling ```make```.
+Use this in example if you use ```exec``` types recipes in conjunction with ```source``` recipes so you can define a default.
+
 TODO
 ----
 - [x] get drunk (bug found: infinite iteration ongoing in head object at 0x0)

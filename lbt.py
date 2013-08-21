@@ -339,6 +339,7 @@ class TargetSource(Attributed):
 
 class Recipe:
     _targets = []
+    _defines = []
 
     def open(self, filename):
         """
@@ -352,13 +353,16 @@ class Recipe:
         file_.close()
 
         for target in recipe:
-            if "type" in recipe[target]:
+            if "type" in recipe[target] and target != "defines":
                 if recipe[target]['type'] == "source":
                     self._targets.append(TargetSource(recipe[target]))
                     self._targets[-1].process(target)
                 elif recipe[target]['type'] == "exec":
                     self._targets.append(TargetExecute(recipe[target]))
                     self._targets[-1].process(target)
+
+        if "defines" in recipe:
+            self._defines = recipe['defines']
 
     def give_makefile(self):
         """
@@ -368,6 +372,9 @@ class Recipe:
           Makefile string.
         """
         makefile_str = ""
+        makefile_str += "\n".join(self._defines)
+        makefile_str += "\n\n"
+
         for target in self._targets:
             makefile_str += target.give_makefile()
 
