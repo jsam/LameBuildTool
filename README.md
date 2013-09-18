@@ -68,17 +68,18 @@ You may define more targets in recipe. Dependency in on target to other targets 
 ```JSON
 "depends": [
     "target1",
-    "target2",
+    "after:target2",
     ...
   ]
   ```
 If the depending target is of type source add the targets target field value (for example "bin/target_name").
 On exec targets add their target name (the root value).
+Adding after keyword is for source targets only, and it will add the given dependency to the end in linking stage.
 
 The target field defines the final linked binary path.
     "target": "bin/target_name"
 
-Sources and ignores are two lists in which the source files are defined. All sources are matched with unix filename pattern matching. So you can define something like *.c which will include all c files recursively in the defined root directory.
+Sources and ignores are two lists in which the source files are defined. All sources are matched with unix filename pattern matching. So you can define something like *.c which will include all c files recursively in the defined root directory. Ignores are matched with regex!
 
 dependency_command defines a command which will be executed on every matched source file. The executed command MUST return a makefile valid syntax dependency list.
 

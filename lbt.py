@@ -1,4 +1,4 @@
-#!/bin/env python2
+#!/usr/bin/env python2.6
 
 # Copyright (c) 2013, Petar Pofuk
 # All rights reserved.
@@ -24,6 +24,7 @@
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import os
+import re
 import sys
 import json
 import fnmatch
@@ -58,7 +59,10 @@ def list_iterate_directory(directory='./', sources=['*.cc'], ignores=[]):
                 if fnmatch.fnmatch(os.path.join(root, file_name), source):
                     match = True
             for ignore in ignores:
-                if fnmatch.fnmatch(os.path.join(root, file_name), ignore):
+                #if fnmatch.fnmatch(os.path.join(root, file_name), ignore):
+                #    match = False
+                # We're using regex for ignores now.
+                if re.match(ignore, os.path.join(root, file_name)):
                     match = False
 
             if match is True:
@@ -271,13 +275,13 @@ class Compiler(Attributed):
 
         compile_string = self.command + " "
 
+        compile_string += " -o $@ $^ "
+
         for pkgconf in self.pkg_configs:
             compile_string += _gen_pkgconf(pkgconf)
 
         for lib in self.libs:
             compile_string += _gen_lib(lib)
-
-        compile_string += " -o $@ $^ "
 
         for flag in self.flags:
             compile_string += _gen_flag(flag)
@@ -312,15 +316,28 @@ class TargetSource(Attributed):
         if self._compiler.obj_path[-1] != '/':
             self._compiler.obj_path += '/'
 
+        # Regex for depends
+        after = re.compile('after:')
+
         makefile_str = ""
         makefile_str = self.target + ": "
+
         if "depends" in self.__dict__:
-            makefile_str += " ".join(self.depends)
-            makefile_str += " "
+            for depend in self.depends:
+                if after.match(depend):
+                    continue
+                else:
+                    makefile_str += depend + " "
 
         for source in self._sources:
             makefile_str += self._compiler.obj_path + source._object_filename
             makefile_str += " "
+
+        if "depends" in self.__dict__:
+            for depend in self.depends:
+                if after.match(depend):
+                    depend = depend.replace(after.pattern, '')
+                    makefile_str += depend + " "
 
         makefile_str += "\n\t"
         makefile_str += self._compiler.give_link_target()
