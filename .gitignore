@@ -1,6 +1,7 @@
 *.pyc
 build/
 dist/
+src/#*
 src/*.pyc
 src/*~
 src/__pycache__/

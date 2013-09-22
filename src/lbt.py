@@ -466,6 +466,8 @@ class NewStructure(object):
 
         print(" [+] Creating stub files")
         # TODO: parse template and fill data with it
+        # TODO: reparse .lbt file
+        # TODO: generate project version.h file -> check google template!
 
         print(" [+] Creating makefile in {}".format(target_path + "/.lbt"))
         os.chdir(target_path)
