@@ -17,4 +17,5 @@ if __name__ == "__main__":
                         help="Generate makefile from specified json file")
     args = parser.parse_args()
 
+    
     MainApp(args)
