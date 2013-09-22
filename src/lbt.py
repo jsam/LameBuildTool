@@ -452,12 +452,13 @@ from distutils.dir_util import copy_tree
 import tarfile as tf
 class NewStructure(object):
 
-    def __init__(self, target_path, language="cpp", of_type="project"): # of_type="libraries"
+    def __init__(self, target_path, language="cpp", of_type="project"):
         self.template_path = "/".join(["templates", of_type, "_".join([language, of_type])])
         print(" [+] Creating new folder structure: ")
         copy_tree(sys.prefix + "/share/lbt/" + self.template_path, target_path)
         # TODO: parse template and fill data with it
         print(" [+] Creating stub files")
+        # TODO: generate makefile for this project
 
 
 class MainApp:
