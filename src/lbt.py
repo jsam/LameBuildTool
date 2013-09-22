@@ -483,4 +483,4 @@ class MainApp:
 
     def new_library(self):
         """Generate new library from template""" 
-
+        pass

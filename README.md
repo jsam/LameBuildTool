@@ -28,15 +28,15 @@ If you are using python2 with alias "python" you need to switch shebang values i
 Usage
 -----
 
-	## Generate makefile
+Generate makefile
 
     lbt [recipe.json]
 
-    	## Generate project structure from template
+Generate project structure from template
 
     TODO
 
-	## Generate library structure from template
+Generate library structure from template
 
     TODO
 
