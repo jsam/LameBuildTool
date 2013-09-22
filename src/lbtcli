@@ -9,12 +9,35 @@ from lbt import MainApp
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description=__description__)
-    parser.add_argument("-np", "--new_project", 
-                        help="Generate new project structure and default makefile from template")
-    parser.add_argument("-nl", "--new_library",
-                        help="Generate new library structure and default makefile from template")
+
     parser.add_argument("-m", "--make_makefile", 
-                        help="Generate makefile from specified json file")
+                        help = "Generate makefile from specified json file")
+
+
+    parser.add_argument("-np", "--new_project", 
+                        help = "Generate new project structure and default makefile from template")
+    parser.add_argument("-nl", "--new_library",
+                        help = "Generate new library structure and default makefile from template")
+
+
+    parser.add_argument("-c", "--compile",
+                        help = "Compile current project.")
+    parser.add_argument("-ce", "--compile_run",
+                        help = "Compile and run current project.")
+    
+
+    parser.add_argument("-am", "--add_module", 
+                        help = "Generate .cc and .h files with new module name to current project")
+    parser.add_argument("-at", "--add_test", 
+                        help = "Generate new unit test for current project")
+    parser.add_argument("-ad", "--add_dependency", 
+                        help = "Copy dependency to project and update makefile")
+
+    parser.add_argument("-cl", "--change_license",
+                        help = "Change project license")
+    parser.add_argument("-gd", "--generate_documentation",
+                        help="Execute doxygen to parse all project files and generate documentation")
+    
     args = parser.parse_args()
 
     
