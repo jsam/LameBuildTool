@@ -23,12 +23,23 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+
 import os
 import re
 import sys
 import json
 import fnmatch
 import commands
+
+__all__ = ("__program__", "__url__", "__author__", "__copyright__", "__license__", "__version__", "__description__", "MainApp")
+
+__program__ = "lbt"
+__url__ = "lbt.github.io"
+__author__ = "Petar Pofuk <ppofuk@gmail.com>"
+__copyright__ = "Copyright (c) 2013"
+__license__ = "" # TODO: which one?
+__version__ = "0.0.2"
+__description__ = """Tool for generating C/C++ makefiles."""
 
 
 def list_iterate_directory(directory='./', sources=['*.cc'], ignores=[]):
@@ -293,6 +304,12 @@ class TargetSource(Attributed):
     """
     Description goes here. Ohnoes
     """
+
+
+    def __init__(self):
+        pass
+
+
     def process(self, name):
         """
         Process target source attributes. This will create dependency list and
@@ -355,20 +372,26 @@ class TargetSource(Attributed):
 
 
 class Recipe:
-    _targets = []
-    _defines = []
 
-    def open(self, filename):
+
+    def __init__(self):
+        _targets = []
+        _defines = []
+
+
+    def open_file(self, filename):
         """
         Loads JSON recipe and parses it.
 
         Args:
           open: file name string
         """
-        file_ = open(filename, "r")
-        recipe = json.loads(file_.read())
-        file_.close()
+        
+        recipe = None
+        with open(filename, "r") as f:
+            recipe = json.loads(f.read())
 
+        
         for target in recipe:
             if "type" in recipe[target] and target != "defines":
                 if recipe[target]['type'] == "source":
@@ -378,8 +401,10 @@ class Recipe:
                     self._targets.append(TargetExecute(recipe[target]))
                     self._targets[-1].process(target)
 
+
         if "defines" in recipe:
             self._defines = recipe['defines']
+
 
     def give_makefile(self):
         """
@@ -424,15 +449,38 @@ class TargetExecute(Attributed):
         return makefile_str + "\n"
 
 
-if __name__ == "__main__":
-    # TODO(ppofuk): argument parser
-    # TODO(ppofuk): recipe validator
 
-    recipe = Recipe()
-    recipe.open(sys.argv[1])
+class MainApp:
 
-    file_ = open('makefile', "w")
-    file_.write(recipe.give_makefile())
-    file_.close()
+    
+    def __init__(self, opts):
+        self._opts = opts
+        
+        if self._opts.make_makefile:
+            _recipe = Recipe().open_file(self._opts.make_makefile)
+            # TODO(ppofuk): recipe validator
+            # TODO(sam): call recipe validator here
+            self.make_makefile()
 
+        if self._opts.new_project:
+            self.new_project()
+            
+
+    def make_makefile(self):
+        try:
+            with open("makefile", "w") as f:
+                f.write(self._recipe.give_makefile())
+            print(" [+] Makefile generated successfully.")
+        except IOError:
+            print(" [-] There was an error while generating makefile. Try again, or report issue.")
+            
+
+    def new_project(self):
+        """Generate new project from template"""
+        # TODO(sam): generate project structure
+        # TODO(sam): download testing lib for project
+        pass
+
+    def new_library(self):
+        """Generate new library from template""" 
 

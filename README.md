@@ -135,6 +135,7 @@ Use this in example if you use ```exec``` types recipes in conjunction with ```s
 TODO
 ----
 - [x] get drunk (bug found: infinite iteration ongoing in head object at 0x0)
+- [ ] get the batmobile back (https://fbcdn-sphotos-d-a.akamaihd.net/hphotos-ak-prn1/524514_626427844064708_686258337_n.jpg)
 - [ ] validate JSON with lbt rules before loading it
 - [ ] support for compiling libraries
 - [ ] parsing command line options (yeah, I'm lazy, argv ftw!)

@@ -1,0 +1,37 @@
+{
+    "target_name": {
+        "type": "source",
+        "depends": [
+            "some_other_target_definition"
+        ],
+        "root": "./",
+        "target": "bin/target_name",
+        "sources" : [
+            "*.cc",
+            "src/base/event.cc"
+        ],
+        "ignores": [
+            "src/main.cc"
+        ],
+        "dependency_command": "c++ -MM",
+        "compiler": {
+            "command": "c++",
+            "libs": [
+                "pthread",
+                "png"
+            ],
+            "flags": [
+                "ggdb",
+                "static"
+            ],
+            "includes": [
+                "third-party/"
+            ],
+            "pkg_configs": [
+                "cairo",
+                "gtk"
+            ],
+            "obj_path": "obj/"
+        }
+    }
+}
