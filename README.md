@@ -30,15 +30,15 @@ Usage
 
 Generate makefile
 
-    lbt [recipe.json]
+    lbtcli -m [recipe.json]
 
 Generate project structure from template
 
-    TODO
+    lbtcli -np [path/where/to/generate/project] 
 
 Generate library structure from template
 
-    TODO
+    lbtcli -nl [path/to/existing/project]
 
 
 Recipes for sources

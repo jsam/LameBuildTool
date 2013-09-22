@@ -305,11 +305,6 @@ class TargetSource(Attributed):
     Description goes here. Ohnoes
     """
 
-
-    def __init__(self):
-        pass
-
-
     def process(self, name):
         """
         Process target source attributes. This will create dependency list and
@@ -371,23 +366,26 @@ class TargetSource(Attributed):
         return makefile_str
 
 
-class Recipe:
+class Recipe(object):
 
 
-    def __init__(self):
-        _targets = []
-        _defines = []
+    def __init__(self, filename):
+        self._targets = []
+        self._defines = []
+        self.filename = filename
+        # TODO(ppofuk): recipe validator 
+        self._open_file(self.filename)
 
-
-    def open_file(self, filename):
+    def _open_file(self, filename):
         """
         Loads JSON recipe and parses it.
 
         Args:
           open: file name string
         """
-        
+
         recipe = None
+
         with open(filename, "r") as f:
             recipe = json.loads(f.read())
 
@@ -406,7 +404,7 @@ class Recipe:
             self._defines = recipe['defines']
 
 
-    def give_makefile(self):
+    def get_makefile(self):
         """
         Generates makefile string.
 
@@ -452,35 +450,32 @@ class TargetExecute(Attributed):
 
 class MainApp:
 
-    
+
     def __init__(self, opts):
         self._opts = opts
-        
+
         if self._opts.make_makefile:
-            _recipe = Recipe().open_file(self._opts.make_makefile)
-            # TODO(ppofuk): recipe validator
-            # TODO(sam): call recipe validator here
-            self.make_makefile()
+            self.make_makefile(Recipe(opts.make_makefile))
 
         if self._opts.new_project:
             self.new_project()
             
 
-    def make_makefile(self):
+    def make_makefile_opt(self, recipe):
         try:
             with open("makefile", "w") as f:
-                f.write(self._recipe.give_makefile())
+                f.write(recipe.get_makefile())
             print(" [+] Makefile generated successfully.")
         except IOError:
             print(" [-] There was an error while generating makefile. Try again, or report issue.")
             
 
-    def new_project(self):
+    def new_project_opt(self):
         """Generate new project from template"""
         # TODO(sam): generate project structure
         # TODO(sam): download testing lib for project
         pass
 
-    def new_library(self):
+    def new_library_opt(self):
         """Generate new library from template""" 
         pass

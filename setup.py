@@ -10,5 +10,5 @@ setup(name = src.__program__,
       author = src.__author__,
       author_email = src.__author__,
       package_dir = {"": "src"},
-      scripts = ["src/lbt"],
+      scripts = ["src/lbtcli"],
       packages=[""]) 

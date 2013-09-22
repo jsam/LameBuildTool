@@ -11,7 +11,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__description__)
     parser.add_argument("-np", "--new_project", 
                         help="Generate new project structure and default makefile from template")
-    parser.add_argument("-nt", "--new_library",
+    parser.add_argument("-nl", "--new_library",
                         help="Generate new library structure and default makefile from template")
     parser.add_argument("-m", "--make_makefile", 
                         help="Generate makefile from specified json file")
