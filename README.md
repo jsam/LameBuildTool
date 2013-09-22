@@ -4,6 +4,26 @@ LameBuildTool
 A simple tool for auto-generating C/C++ makefiles.
 Note, that this is a rough raw unstable version.
 
+Installation
+------------
+
+    sudo python2 setup.py install
+
+or
+
+    sudo python setup.py install
+
+Remember that current version is supported only with Python2. This will install library to:
+
+    /usr/lib/python2.7/site-packages
+
+and executable script to:
+    
+    /usr/bin/
+
+
+If you are using python2 with alias "python" you need to switch shebang values inside those scripts otherwise you will get errors.
+
 Usage
 -----
     lbt.py [recipe.json]
