@@ -24,9 +24,22 @@ and executable script to:
 
 If you are using python2 with alias "python" you need to switch shebang values inside those scripts otherwise you will get errors.
 
+
 Usage
 -----
-    lbt.py [recipe.json]
+
+	## Generate makefile
+
+    lbt [recipe.json]
+
+    	## Generate project structure from template
+
+    TODO
+
+	## Generate library structure from template
+
+    TODO
+
 
 Recipes for sources
 -------------------
