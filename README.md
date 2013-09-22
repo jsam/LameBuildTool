@@ -1,28 +1,37 @@
 LameBuildTool
 =============
 
-A simple tool for auto-generating C/C++ makefiles.
-Note, that this is a rough raw unstable version.
+A simple tool for auto-generating C/C++ makefiles and project management.
+
+!Note, that this is a rough raw unstable version.
 
 Installation
 ------------
 
+Installation is done via distutils which is part of standard library in Python, so you can just execute:
+
     sudo python2 setup.py install
 
-or
+or(depends on your alias for python)
 
     sudo python setup.py install
 
-Remember that current version is supported only with Python2. This will install library to:
+This will install library to:
 
     /usr/lib/python2.7/site-packages
 
-and executable script to:
+executable script to:
     
     /usr/bin/
 
+and template resources to:
 
-If you are using python2 with alias "python" you need to switch shebang values inside those scripts otherwise you will get errors.
+    /usr/lbt/templates/library/*
+    /usr/lbt/templates/project/*
+
+
+* Remember that current version is supported only with Python2.
+* If you are using python2 with alias "python" you need to switch shebang values inside those scripts otherwise you will get errors.
 
 
 Usage
@@ -36,9 +45,14 @@ Generate project structure from template
 
     lbtcli -np [path/where/to/generate/project] 
 
+To update makefile in given project you can use:
+
+    lbtcli -m . # or ./ 
+
 Generate library structure from template
 
     lbtcli -nl [path/to/existing/project]
+
 
 
 Recipes for sources

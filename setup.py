@@ -18,8 +18,7 @@ def generate_data_files(*dirs):
                 map(lambda f: root + "/" + f, files)))
     return results
 
-print(" [+] {}".format(sys.prefix))
-print(generate_data_files("templates"))
+
 setup(name = src.__program__,
       version = src.__version__,
       description = src.__description__,

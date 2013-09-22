@@ -369,12 +369,15 @@ class TargetSource(Attributed):
 class Recipe(object):
 
 
-    def __init__(self, filename):
-        self._targets = []
-        self._defines = []
+    def __init__(self, filename=".lbt"):
+        self._targets, self._defines = [], []
         self.filename = filename
-        # TODO(ppofuk): recipe validator 
+
+        if self.filename == "./" or self.filename == ".":
+            self.filename = ".lbt"
+
         self._open_file(self.filename)
+
 
     def _open_file(self, filename):
         """
@@ -388,6 +391,7 @@ class Recipe(object):
 
         with open(filename, "r") as f:
             recipe = json.loads(f.read())
+            # TODO(ppofuk): recipe validator 
 
         
         for target in recipe:
@@ -449,29 +453,44 @@ class TargetExecute(Attributed):
 
 
 from distutils.dir_util import copy_tree
-import tarfile as tf
 class NewStructure(object):
 
     def __init__(self, target_path, language="cpp", of_type="project"):
         self.template_path = "/".join(["templates", of_type, "_".join([language, of_type])])
-        print(" [+] Creating new folder structure: ")
+        self.project_path = target_path.split("/")
+        self.project_name = self.project_path[len(self.project_path) - 1]
+        print(" [+] Creating new folder structure for project {} ".format(self.project_name))
+        print(" " * 4 + "{}/".format(self.project_name))
+
         copy_tree(sys.prefix + "/share/lbt/" + self.template_path, target_path)
-        # TODO: parse template and fill data with it
+
         print(" [+] Creating stub files")
-        # TODO: generate makefile for this project
+        # TODO: parse template and fill data with it
+
+        print(" [+] Creating makefile in {}".format(target_path + "/.lbt"))
+        os.chdir(target_path)
+        MainApp().make_makefile(Recipe())
+        print(" [+] Generating stub tests")
+        # TODO: setup UnitTest++
 
 
 class MainApp:
 
 
-    def __init__(self, opts):
-        self._opts = opts
+    def __init__(self, opts=None):
+        if opts:
+            if opts.make_makefile:
+                self.make_makefile(Recipe(opts.make_makefile))
+                
+            if opts.new_project:
+                self.new_project(opts.new_project)
 
-        if self._opts.make_makefile:
-            self.make_makefile(Recipe(opts.make_makefile))
 
-        if self._opts.new_project:
-            self.new_project()
+    def __new__(self, *args, **kwargs):
+        """Singleton override"""
+        if not self._instance:
+            self._instance = super(MainApp, self).__new__(self, *args, **kwargs)
+        return self._instance
             
 
     def make_makefile(self, recipe):
@@ -483,11 +502,12 @@ class MainApp:
             print(" [-] There was an error while generating makefile. Try again, or report issue.")
             
 
-    def new_project(self):
+    def new_project(self, target_path):
         """Generate new project from template"""
         # TODO(sam): generate project structure
         # TODO(sam): download testing lib for project
-        new_project = NewStructure(self._opts.new_project)
+        new_project = NewStructure(target_path)
+
 
     def new_library(self):
         """Generate new library from template""" 

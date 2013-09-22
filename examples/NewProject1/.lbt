@@ -1,0 +1,32 @@
+{
+    "target_name": {
+        "type": "source",
+        "depends": [],
+        "root": "./",
+        "target": "bin/main",
+        "sources" : [
+            "*.cc",
+            "src/*.cc"
+        ],
+        "ignores": [
+            "src/main.cc"
+        ],
+        "dependency_command": "c++ -MM",
+        "compiler": {
+            "command": "c++",
+            "libs": [
+                "pthread",
+                "png"
+            ],
+            "flags": [
+                "ggdb",
+                "static"
+            ],
+            "includes": [
+                "thirdparty/"
+            ],
+            "pkg_configs": [],
+            "obj_path": "build/"
+        }
+    }
+}

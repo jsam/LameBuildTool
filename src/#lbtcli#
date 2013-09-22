@@ -1,0 +1,21 @@
+#!/usr/bin/env python2
+
+
+import argparse
+from lbt import __description__
+from lbt import MainApp
+
+
+if __name__ == "__main__":
+
+    parser = argparse.ArgumentParser(description=__description__)
+    parser.add_argument("-np", "--new_project", 
+                        help="Generate new project structure and default makefile from template")
+    parser.add_argument("-nl", "--new_library",
+                        help="Generate new library structure and default makefile from template")
+    parser.add_argument("-m", "--make_makefile", 
+                        help="Generate makefile from specified json file")
+    args = parser.parse_args()
+
+    
+    MainApp(args)
