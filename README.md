@@ -3,7 +3,7 @@ LameBuildTool
 
 A simple tool for auto-generating C/C++ makefiles and project management.
 
-!Note, that this is a rough raw unstable version.
+ ! Note, that this is a rough raw unstable version.
 
 Installation
 ------------
@@ -37,17 +37,19 @@ and template resources to:
 Usage
 -----
 
-Generate makefile
+Generate makefile:
 
     lbtcli -m [recipe.json]
 
-Generate project structure from template
+Generate project structure from template:
 
     lbtcli -np [path/where/to/generate/project] 
 
 To update makefile in given project you can use:
 
-    lbtcli -m . # or ./ 
+    lbtcli -m .
+    # or
+    lbtcli -m ./
 
 Generate library structure from template
 
