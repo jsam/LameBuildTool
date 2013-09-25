@@ -5,7 +5,7 @@
         "root": "./",
         "target": "bin/main",
         "sources" : [
-            "*.cc",
+	    "*.cc",
             "src/*.cc"
         ],
         "ignores": [

@@ -26,8 +26,8 @@ executable script to:
 
 and template resources to:
 
-    /usr/lbt/templates/library/*
-    /usr/lbt/templates/project/*
+    /usr/share/lbt/templates/library/*
+    /usr/share/lbt/templates/project/*
 
 
 * Remember that current version is supported only with Python2.

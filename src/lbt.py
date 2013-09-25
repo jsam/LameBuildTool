@@ -454,26 +454,54 @@ class TargetExecute(Attributed):
 
 from distutils.dir_util import copy_tree
 class NewStructure(object):
+    
+    
 
     def __init__(self, target_path, language="cpp", of_type="project"):
         self.template_path = "/".join(["templates", of_type, "_".join([language, of_type])])
         self.project_path = target_path.split("/")
-        self.project_name = self.project_path[len(self.project_path) - 1]
-        print(" [+] Creating new folder structure for project {} ".format(self.project_name))
-        print(" " * 4 + "{}/".format(self.project_name))
-
+        self.project_name = self.project_path[-1]
+        self._lbt = None
         copy_tree(sys.prefix + "/share/lbt/" + self.template_path, target_path)
-
-        print(" [+] Creating stub files")
-        # TODO: parse template and fill data with it
-        # TODO: reparse .lbt file
-        # TODO: generate project version.h file -> check google template!
-
-        print(" [+] Creating makefile in {}".format(target_path + "/.lbt"))
         os.chdir(target_path)
+        dirlist = os.listdir("./")
+        print(" [+] Creating new folder structure for project")
+        print(" " * 4 + "{}/".format(self.project_name))
+        for item in reversed(sorted(dirlist)):
+            print(" " * 4 + "...." + "{}".format(item))
+        
+        print(" [+] Creating makefile in {}".format(target_path + "/"))
         MainApp().make_makefile(Recipe())
+
+        
+        print(" [+] Collecting data for config.h ...")
+        config_dict = dict()
+        config_dict["name"] = self.project_name
+        config_dict["codename"] = raw_input("Application codename: ")
+        config_dict["copyright_years"] = raw_input("Application copyright years: ")
+        config_dict["vendor_id"] = raw_input("Vendor ID: ")
+        config_dict["vendor_name"] = raw_input("Vendor name: ")
+        config_dict["vendor_url"] = raw_input("Vendor URL: http(s)://")
+        config_dict["application_id"] = raw_input("Application ID (com.appzor): ")
+        # TODO: save config dict to .lbt
+
+        with open(".lbt") as conf:
+            self._lbt = json.loads(conf.read())
+        with open(".lbt", "w") as conf:
+            self._lbt["project_config"] = config_dict
+            conf.write(json.dumps(self._lbt))
+
+        with open("src/config.h") as conf:
+            template = conf.read()  #"".join([line for line in conf])
+        with open("src/config.h", "w") as conf:
+            conf.write(template.format(**config_dict))
+            
+        print(" [+] Generating logging module")
+        # TODO: setup logging
+
         print(" [+] Generating stub tests")
         # TODO: setup UnitTest++
+
 
 
 class MainApp:
